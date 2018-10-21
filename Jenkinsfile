@@ -33,7 +33,7 @@ pipeline {
     stage('Publish') {
         steps {
             script {
-                def server = Artifactory.server 'jfrog'
+                def server = Artifactory.server 'jFrog'
                 def uploadSpec = """{
                     "files": [
                         {
