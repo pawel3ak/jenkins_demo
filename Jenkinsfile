@@ -31,17 +31,19 @@ pipeline {
       }
     }
     stage('Publish') {
-        script {
-            def server = Artifactory.server 'jfrog'
-            def uploadSpec = """{
-                "files": [
-                    {
-                        "pattern": "terget/jenkinsDemo*",
-                        "target": "my-pipeline-results"
-                    }
-                ]
-            }"""
-            server.upload(uploadSpec)
+        steps {
+            script {
+                def server = Artifactory.server 'jfrog'
+                def uploadSpec = """{
+                    "files": [
+                        {
+                            "pattern": "terget/jenkinsDemo*",
+                            "target": "my-pipeline-results"
+                        }
+                    ]
+                }"""
+                server.upload(uploadSpec)
+            }
         }
     }
   }
