@@ -3,17 +3,15 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        dir(path: 'maven-example/')
-        sh 'mvn clean install package'
+        sh 'mvn clean install'
       }
     }
     stage('Test') {
       parallel {
         stage('Test') {
           steps {
-            echo 'Maven testing only now'
             timeout(time: 180) {
-              junit(allowEmptyResults: true, testResults: 'target/testResults.xml')
+                echo 'Maven testing only now'
             }
 
           }
@@ -32,6 +30,7 @@ pipeline {
     }
     stage('Publish') {
         steps {
+            dir(path: 'maven-example/')
             script {
                 def server = Artifactory.server 'jfrog'
                 def uploadSpec = """{
