@@ -23,22 +23,24 @@ pipeline {
             echo 'Platform 1-A step'
           }
         }
-        stage('Smoke') {
-          steps {
-            echo 'Platform 2-A test step'
-            sh 'mvn clean verify -Dtags=\'type:Smoke\''
-            catchError() {
-              sh 'mvn clean verify -Dtags=\'type:Smoke\''
-            }
-
-          }
-        }
       }
     }
     stage('Deploy') {
       steps {
         sh 'mvn package'
       }
+    }
+    stage('Publish') {
+        def server = Artifactory.server 'jfrog'
+        def uploadSpec = """{
+            "files": [
+                {
+                    "pattern": "terget/jenkinsDemo*",
+                    "target": "my-pipeline-results"
+                }
+            ]
+        }"""
+        server.upload(uploadSpec)
     }
   }
   environment {
