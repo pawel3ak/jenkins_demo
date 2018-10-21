@@ -1,3 +1,5 @@
+#!groovy​
+
 pipeline {
   agent any
   stages {
@@ -30,13 +32,12 @@ pipeline {
     }
     stage('Publish') {
         steps {
-            dir(path: 'maven-example/')
             script {
                 def server = Artifactory.server 'jfrog'
                 def uploadSpec = """{
                     "files": [
                         {
-                            "pattern": "terget/jenkinsDemo*",
+                            "pattern": "target/jenkinsDemo*",
                             "target": "my-pipeline-results"
                         }
                     ]
