@@ -51,6 +51,7 @@
 	</dependencies>
 
 	<build>
+        <finalName>jenkinsDemo</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -59,6 +60,7 @@
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
 				<configuration>
+                    <warName>jenkinsDemo.war</warName>
 					<attachClasses>true</attachClasses>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                     <!--<webResources>-->
